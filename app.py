@@ -25,6 +25,15 @@ def procesar_google_news(url):
     try:
         headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
         res = requests.get(url, headers=headers)
+        print(f"DEBUG: Status Code de noticias: {res.status_code}")
+        
+        if res.status_code != 200:
+            print(f"DEBUG: Error en la respuesta: {res.text[:100]}") # Solo los primeros 100 caracteres
+            return []
+
+        sopa = BeautifulSoup(res.text, "xml")
+        items = sopa.find_all('item')
+        print(f"DEBUG: Cantidad de noticias encontradas: {len(items)}")
         sopa = BeautifulSoup(res.text, "xml")
         for item in sopa.find_all('item', limit=8):
             fecha_dt = obtener_hora_y_fecha(item.pubDate.text if item.find('pubDate') else "")

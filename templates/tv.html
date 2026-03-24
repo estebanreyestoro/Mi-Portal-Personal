@@ -205,6 +205,7 @@
         }
         .input-glass:focus { border-color: rgba(255,255,255,0.4); }
 
+        
         /* AJUSTE RESPONSIVO PARA SUBPÁGINAS (Móviles) */
         @media (max-width: 600px) {
             /* Centramos la navegación superior */
@@ -263,14 +264,14 @@
         :-webkit-full-screen .ratio {
             width: 100vw !important;
             height: 100vh !important;
-            max-width: none !important;
-            max-height: none !important;
+            max-width: flex !important;
+            max-height: flex !important;
             padding: 0 !important;
             margin: 0 !important;
-            position: fixed !important;
+            position: relative !important;
             top: 0 !important;
             left: 0 !important;
-            z-index: 2147483647 !important; /* Máximo z-index posible */
+            z-index: auto !important; /* Máximo z-index posible */
             background-color: black !important; /* Fondo negro sólido para evitar fugas */
         }
     </style>

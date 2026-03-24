@@ -242,6 +242,42 @@
             font-weight: 700;
         }
         
+        /* AJUSTE RESPONSIVO PARA SUBPÁGINAS (Móviles) */
+        @media (max-width: 600px) {
+            /* Centramos la navegación superior */
+            .top-nav {
+                flex-direction: column !important;
+                gap: 15px !important;
+                padding: 20px 10px !important;
+                text-align: center !important;
+            }
+
+            .page-title {
+                font-size: 1.8rem !important; /* Título más acorde al móvil */
+            }
+
+            /* Forzamos que el contenedor sea una sola columna centrada */
+            .dashboard {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 20px !important;
+                padding: 0 15px 100px 15px !important;
+            }
+
+            /* Ajustamos las tarjetas para que no se desborden y se centren */
+            .glass-card {
+                width: 100% !important;
+                max-width: 360px !important; /* Un poco más ancho que los botones de home para poder leer bien */
+                padding: 20px !important;
+                max-height: none !important; /* Permitimos que la tarjeta crezca hacia abajo para scrollear mejor */
+            }
+
+            /* Ajuste específico para el reproductor de TV y videos */
+            .ratio-16x9 {
+                border-radius: 12px !important;
+            }
+        }
     </style>
 </head>
 <body>

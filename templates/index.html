@@ -377,29 +377,35 @@
             background: rgba(0, 0, 0, 0.15);
         }
 
-        /* Ajustes específicos para móviles (Pantallas de menos de 600px) */
+        /* FUERZA UNA SOLA COLUMNA EN CELULARES */
         @media (max-width: 600px) {
             .home-grid {
-                grid-template-columns: 1fr; /* Una sola columna: las cards se apilan verticalmente */
-                max-width: 320px; /* Limitamos el ancho de la "pila" para que quede estilizada */
-                margin: 0 auto; /* Centra todo el bloque de botones respecto a la pantalla */
-                gap: 20px; /* Espacio vertical entre cada gota de cristal */
-                padding: 10px 20px 80px 20px; /* Aire a los costados y espacio abajo para el scroll */
+                display: flex !important; /* Cambiamos a Flex para mejor control de centrado */
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 20px !important;
+                padding: 20px 15px 100px 15px !important;
             }
 
             .home-btn {
-                width: 100%; /* Cada card ocupa el total del ancho permitido (320px) */
-                padding: 35px 20px; /* Reducimos un poco el alto para que entren más en pantalla */
+                width: 100% !important; /* Ocupa el ancho disponible */
+                max-width: 320px !important; /* Pero no se estira de más, para mantener la forma de gota */
+                padding: 35px 20px !important;
             }
 
-            /* Ajuste del Hero para que el reloj no se corte en vertical */
+            /* Ajuste de los textos para que no se amontonen */
+            .home-btn i {
+                font-size: 2.8rem !important;
+            }
+
+            .home-btn span {
+                font-size: 0.9rem !important;
+            }
+
+            /* Achicamos un poco el reloj para que las cards suban */
             .time-display {
-                font-size: 5rem; 
-                letter-spacing: -3px;
-            }
-
-            #saludo-titulo {
-                font-size: 2.2rem;
+                font-size: 4.5rem !important;
+                letter-spacing: -2px !important;
             }
         }
     </style>

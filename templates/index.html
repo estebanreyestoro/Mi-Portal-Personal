@@ -376,6 +376,32 @@
         #card-noticias .content::-webkit-scrollbar-track {
             background: rgba(0, 0, 0, 0.15);
         }
+
+        /* Ajustes específicos para móviles (Pantallas de menos de 600px) */
+        @media (max-width: 600px) {
+            .home-grid {
+                grid-template-columns: 1fr; /* Una sola columna: las cards se apilan verticalmente */
+                max-width: 320px; /* Limitamos el ancho de la "pila" para que quede estilizada */
+                margin: 0 auto; /* Centra todo el bloque de botones respecto a la pantalla */
+                gap: 20px; /* Espacio vertical entre cada gota de cristal */
+                padding: 10px 20px 80px 20px; /* Aire a los costados y espacio abajo para el scroll */
+            }
+
+            .home-btn {
+                width: 100%; /* Cada card ocupa el total del ancho permitido (320px) */
+                padding: 35px 20px; /* Reducimos un poco el alto para que entren más en pantalla */
+            }
+
+            /* Ajuste del Hero para que el reloj no se corte en vertical */
+            .time-display {
+                font-size: 5rem; 
+                letter-spacing: -2px;
+            }
+
+            #saludo-titulo {
+                font-size: 2.2rem;
+            }
+        }
     </style>
 </head>
 <body>

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Portal Personal</title>
+    <link rel="icon" type="image/png" href="/static/favicon.png">
     <style>
         /* ====== Variables de tema (Pantone) ====== */
         :root {
@@ -55,39 +56,71 @@
         }
 
         /* ====== Layout principal ====== */
-        .header-top {
-            text-align: center;
-            color: var(--accent);
-            margin: 0 auto 28px;
-            max-width: var(--max-width);
-        }
 
-        .header-top h1 {
-            font-size: 2.2rem;
-            margin: 0 0 12px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        .header-info {
+        /* ====== HERO SECTION (Estilo Apple / Liquid Glass) ====== */
+        .hero-section {
             display: flex;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
-            gap: 8px;
-            font-size: 1rem;
-            color: var(--text-muted);
+            min-height: 45vh; /* Ocupa casi la mitad de la pantalla */
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            animation: fadeIn 2s ease-out;
+        }
+
+        #saludo-titulo {
+            font-size: clamp(3rem, 6vw, 5rem); /* Escalado dinámico */
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            margin: 0;
+            /* Efecto Texto Vidrio Líquido (Base) */
+            background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.3) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0px 15px 30px rgba(0, 0, 0, 0.6); /* Sombra para despegar del fondo */
+            line-height: 1.1;
         }
 
         .time-display {
-            font-family: 'Courier New', monospace;
-            font-size: 1.1rem;
-            font-weight: 500;
-            letter-spacing: 1px;
+            font-family: var(--font); /* Chau a la fuente de código de antes */
+            font-size: clamp(5rem, 12vw, 10rem); /* GIGANTE */
+            font-weight: 200; /* Letra ultra fina estilo Apple */
+            letter-spacing: -4px;
+            margin: 0px;
+            /* Efecto Texto Vidrio Líquido (Reflejo) */
+            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.1) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            /* El relieve del cristal */
+            text-shadow: 
+                2px 2px 5px rgba(0,0,0,0.4),
+                -1px -1px 2px rgba(255,255,255,0.3);
         }
 
         .clima-display {
-            font-size: 0.95rem;
-            color: var(--text-muted);
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.8);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            /* Una sutil pastilla de vidrio esmerilado para que no estorbe al texto gigante */
+            background: rgba(0, 0, 0, 0.2);
+            padding: 8px 24px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         h1 {
@@ -178,13 +211,15 @@
         .theme-musica { --card-accent: #7A5C7F; --card-accent-soft: rgba(122, 92, 127, 0.22); }
         .theme-futbol { --card-accent: #4A6B5C; --card-accent-soft: rgba(74, 107, 92, 0.22); }
         .theme-errepar { --card-accent: #5BA3A8; --card-accent-soft: rgba(91, 163, 168, 0.22); }
+        .theme-tv { --card-accent: #2E4DA7; --card-accent-soft: rgba(46, 77, 167, 0.23); }
 
         .card.theme-f1 h2,
         .card.theme-wec h2,
         .card.theme-cine h2,
         .card.theme-musica h2,
         .card.theme-futbol h2,
-        .card.theme-errepar h2 {
+        .card.theme-errepar h2,
+        .card.theme-tv h2 {
             color: var(--card-accent);
         }
 
@@ -194,10 +229,11 @@
         .card.theme-musica { border-color: rgba(122, 92, 127, 0.4); }
         .card.theme-futbol { border-color: rgba(74, 107, 92, 0.4); }
         .card.theme-errepar { border-color: rgba(91, 163, 168, 0.4); }
+        .card.theme-tv { border-color: rgba(46, 77, 167, 0.4); }
 
         /* ====== Ajustes de diseño específico ====== */
         @media (min-width: 900px) {
-            .theme-musica {
+            .theme-musica, .theme-tv {
                 grid-column: 1 / -1;
             }
         }
@@ -240,7 +276,7 @@
             margin-bottom: 8px;
         }
 
-        .tab-f, .tab-f1, .tab-cine, .tab-motor {
+        .tab-f, .tab-f1, .tab-cine, .tab-motor, .tab-tv {
             cursor: pointer;
             font-size: 0.85rem;
             color: rgba(255, 255, 255, 0.65);
@@ -251,13 +287,13 @@
             background: rgba(0, 0, 0, 0.22);
         }
 
-        .tab-f.active, .tab-f1.active, .tab-cine.active, .tab-motor.active {
+        .tab-f.active, .tab-f1.active, .tab-cine.active, .tab-motor.active, .tab-tv.active {
             background: rgba(255, 255, 255, 0.12);
             color: white;
             box-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
         }
 
-        .tab-f:hover:not(.active), .tab-f1:hover:not(.active), .tab-cine:hover:not(.active), .tab-motor:hover:not(.active) {
+        .tab-f:hover:not(.active), .tab-f1:hover:not(.active), .tab-cine:hover:not(.active), .tab-motor:hover:not(.active), .tab-tv:hover:not(.active) {
             background: rgba(255, 255, 255, 0.08);
         }
 
@@ -267,6 +303,34 @@
 
         .tab-f1.active, .tab-motor.active {
             border-color: rgba(0, 123, 255, 0.6);
+        }
+
+        .tab-tv.active {
+            border-color: rgba(46, 77, 167, 0.6);
+        }
+
+        /* Aspect Ratio Helpers */
+        .ratio {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 12px;
+            background: #000;
+        }
+        .ratio::before {
+            display: block;
+            content: "";
+        }
+        .ratio-16x9::before {
+            padding-top: 56.25%;
+        }
+        .ratio > * {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
         }
 
         .f1-table, .motor-table {
@@ -316,164 +380,133 @@
 </head>
 <body>
 
-    <div class="header-top">
+    <div class="hero-section">
         <h1 id="saludo-titulo">Buenos días</h1>
-        <div class="header-info">
-            <div class="time-display" id="hora-actual">--:--:--</div>
-            <div class="clima-display" id="clima-info">Cargando clima...</div>
-        </div>
+        <div class="time-display" id="hora-actual">--:--</div>
+        <div class="clima-display" id="clima-info">Cargando clima...</div>
     </div>
 
     <div class="dashboard">
+        <style>
+            /* ====== BOTONES HOME: ESTILO LIQUID GLASS (Drops) ====== */
+        .home-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            padding-bottom: 100px; /* Espacio extra abajo */
+        }
+
+        .home-btn {
+            background: transparent; /* TOTALMENTE TRANSPARENTE */
+            text-decoration: none;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 50px 30px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); /* Animación suave */
+            position: relative;
+            overflow: hidden; /* Para el reflejo líquido */
+            
+            /* LA FORMA LÍQUIDA: Bordes muy suaves y asimétricos */
+            border-radius: 60px 20px 60px 20px;
+            
+            /* EL CRISTAL: Relieve sutil */
+            border: 1px solid rgba(255, 255, 255, 0.15); /* El borde fino de la gota */
+            
+            /* Sombra interna para el relieve + Sombra externa para profundidad */
+            box-shadow: 
+                inset 0 2px 3px rgba(255, 255, 255, 0.1), /* Brillo interno arriba */
+                inset 0 -10px 20px rgba(0, 0, 0, 0.2),   /* Sombra interna abajo (volumen) */
+                0 15px 35px rgba(0, 0, 0, 0.5);          /* Sombra externa (despegado del fondo) */
+            
+            backdrop-filter: blur(25px); /* El efecto esmerilado */
+            -webkit-backdrop-filter: blur(25px);
+        }
+
+        /* EL REFLEJO LÍQUIDO (Brillo superior) */
+        .home-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 60%);
+            transform: rotate(-30deg);
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        /* EFECTOS AL PASAR EL MOUSE (Hover) */
+        .home-btn:hover {
+            transform: translateY(-8px) scale(1.03); /* Se levanta y agranda un poquito */
+            background: rgba(255, 255, 255, 0.1); /* Se ilumina levemente por dentro */
+            border-color: rgba(255, 255, 255, 0.4); /* El borde se marca más */
+            box-shadow: 
+                inset 0 2px 5px rgba(255, 255, 255, 0.3),
+                inset 0 -15px 30px rgba(255, 255, 255, 0.05),
+                0 25px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        /* ESTILOS PARA LOS ÍCONOS (Minimalistas) */
+        .home-btn i {
+            font-size: 3.5rem; /* Grandes y finos */
+            color: rgba(255, 255, 255, 0.9);
+            /* Sutil efecto de vidrio también en el ícono */
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.3)); 
+            transition: all 0.3s ease;
+        }
         
-        <div class="card theme-musica" id="card-musica">
-            <h2>Música</h2>
-            <div class="content">
-                <p id="status-musica"><i>Recomendaciones musicales listas.</i></p>
+        .home-btn:hover i {
+            color: var(--accent); /* El ícono se ilumina al pasar el mouse */
+            filter: drop-shadow(0 0 15px var(--accent));
+            transform: scale(1.1);
+        }
 
-                <div style="display: flex; flex-direction: column; gap: 16px;">
-                    <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-start;">
-                        <div style="flex: 2; min-width: 280px; display: flex; flex-direction: column; gap: 10px;">
-                            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                                <button class="btn-update" style="flex: 1; min-width: 140px;" onclick="cargarSpotifyArtist('1Xyo4u8uXC1ZmMpatF05PJ')">The Weeknd</button>
-                                <button class="btn-update" style="flex: 1; min-width: 140px;" onclick="cargarSpotifyArtist('4q3ewBCX7sLwd24euuV69X')">Bad Bunny</button>
-                                <button class="btn-update" style="flex: 1; min-width: 140px;" onclick="cargarSpotifyArtist('2ev6Cd0yJVCcpf2zezEQ8Z')">Anomalie Beats</button>
-                                <button class="btn-update" style="flex: 1; min-width: 140px;" onclick="cargarSpotifyArtist('07B3kEyZwUUqeYLZ5N7LtB')">Esteban Reyes</button>
-                            </div>
-                            <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
-                                <input id="spotify-url" placeholder="URL/URI de Spotify (playlist/track/album)" style="flex: 1; padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.18); background: rgba(0,0,0,0.4); color: #eee;" />
-                                <button class="btn-update" style="flex: 0 0 160px;" onclick="cargarSpotifyDesdeInput()">Cargar embed</button>
-                            </div>
-                        </div>
-                        <div style="flex: 3; min-width: 320px;">
-                            <div style="background: rgba(0,0,0,0.3); border-radius: 12px; overflow: hidden;">
-                                <iframe id="spotify-embed" src="https://open.spotify.com/embed/artist/1Xyo4u8uXC1ZmMpatF05PJ" width="100%" height="160" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-                            </div>
-                        </div>
-                    </div>
+        /* ESTILOS PARA EL TEXTO */
+        .home-btn span {
+            font-size: 1.2rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.9);
+            text-transform: uppercase; /* Todo en mayúscula estilo Apple */
+        }
+        </style>
 
-                    <div style="font-size: 0.75rem; color: #bbb;">
-                        <p style="margin: 0;">Haz clic en un artista para ver su perfil y último lanzamiento (se abre en el widget).<br>
-                        Pega una URL/URI de Spotify y presiona "Cargar embed" para probar cualquier playlist/canción.</p>
-                    </div>
-                </div>
-            </div>
-            <button class="btn-update" onclick="actualizarMusica()">Actualizar Música</button>
+        <div class="home-grid">
+            <a href="/tv" class="home-btn theme-tv">
+                <i class="fas fa-tv"></i> <span>Canales en Vivo & Música</span>
+            </a>
+            
+            <a href="/motor" class="home-btn theme-f1">
+                <i class="fas fa-car"></i> <span>Motorsport & F1</span>
+            </a>
+
+            <a href="/utilidades" class="home-btn" style="border-color: rgba(91, 163, 168, 0.4);">
+                <i class="fas fa-briefcase" style="color: #5BA3A8; filter: drop-shadow(0 0 10px rgba(91,163,168,0.5));"></i>
+                <span>Utilidades</span>
+            </a>
+
+            <a href="/cine" class="home-btn" style="border-color: rgba(229, 169, 61, 0.4);">
+                <i class="fas fa-film" style="color: #E5A93D; filter: drop-shadow(0 0 10px rgba(229,169,61,0.5));"></i>
+                <span>Cine Rex</span>
+            </a>
+
+            <a href="/futbol" class="home-btn theme-futbol">
+                <i class="fas fa-futbol"></i> <span>Fútbol</span>
+            </a>
+
+            <a href="/noticias" class="home-btn" style="border-color: rgba(169, 68, 50, 0.4);">
+                <i class="fas fa-globe-americas" style="color: #A94432; filter: drop-shadow(0 0 10px rgba(169,68,50,0.5));"></i> <span>Noticias Internacionales</span>
+            </a>
         </div>
-
-        <div class="card theme-futbol" id="card-futbol">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <h2>Fútbol</h2>
-                <select id="select-equipo" onchange="cambiarEquipo()" style="background: #222; color: white; border: 1px solid var(--accent); border-radius: 5px; padding: 2px 5px;">
-                    <option value="San Lorenzo">San Lorenzo</option>
-                    <option value="Tottenham">Tottenham</option>
-                    <option value="AS Roma">Roma</option>
-                    <option value="Mauro Icardi Galatasaray">Galatasaray</option>
-                    <option value="Selección Argentina">Selección Arg</option>
-                </select>
-            </div>
-
-            <div class="submenu-futbol" style="display: flex; gap: 10px; margin-bottom: 10px; border-bottom: 1px solid #333; padding-bottom: 5px;">
-                <span class="tab-f active" onclick="cambiarTabFutbol(this, 'noticias')">Noticias</span>
-                <span class="tab-f" onclick="cambiarTabFutbol(this, 'partidos')">Partidos</span>
-                <span class="tab-f" onclick="cambiarTabFutbol(this, 'jugadores')">Jugadores</span>
-            </div>
-
-            <div class="content">
-                <p><i id="status-futbol">Obteniendo datos...</i></p>
-                <ul id="lista-futbol">
-                    </ul>
-            </div>
-            <button class="btn-update" onclick="actualizarFutbol()">Actualizar Todo</button>
-        </div>
-
-        <div class="card theme-f1" id="card-f1">
-            <h2>Fórmula 1</h2>
-    
-            <div class="submenu-f1" style="display: flex; gap: 10px; margin-bottom: 10px; border-bottom: 1px solid #333; padding-bottom: 5px;">
-            <span class="tab-f1 active" onclick="cambiarTabF1(this, 'noticias')">Noticias</span>
-            <span class="tab-f1" onclick="cambiarTabF1(this, 'calendario')">Calendario</span>
-            <span class="tab-f1" onclick="cambiarTabF1(this, 'posiciones')">Posiciones</span>
-            </div>
-
-            <div class="content">
-            <p><i id="status-f1">Sintonizando telemetría...</i></p>
-            <div id="lista-f1">
-                </div>
-            </div>
-            <button class="btn-update" onclick="actualizarF1()">Actualizar F1</button>
-        </div>
-
-        <div class="card theme-wec" id="card-motor">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <h2>Motorsport</h2>
-                <select id="select-motor" onchange="cambiarMotor()" style="background: #222; color: white; border: 1px solid var(--accent); border-radius: 5px; padding: 2px 5px;">
-                    <option value="wec">WEC</option>
-                    <option value="indycar">IndyCar</option>
-                    <option value="imsa">IMSA</option>
-                </select>
-            </div>
-
-            <div class="submenu-motor" id="menu-motor">
-                <span class="tab-motor active" onclick="cambiarTabMotor(this, 'noticias')">Noticias</span>
-                <span class="tab-motor" onclick="cambiarTabMotor(this, 'calendario')">Calendario</span>
-                <a id="link-standings" href="#" target="_blank" style="margin-left: auto; padding: 4px 10px; background: #007bff; color: white; text-decoration: none; border-radius: 4px; font-size: 0.85rem;">Ver Standings</a>
-            </div>
-
-            <div class="content">
-                <p><i id="status-motor">Sintonizando pista...</i></p>
-                <div id="lista-motor"></div>
-            </div>
-            <button class="btn-update" onclick="actualizarMotor()">Actualizar Motorsport</button>
-        </div>
-
-
-        <div class="card theme-cine" id="card-cine">
-            <h2>Cine Viedma</h2>
-            <div class="content">
-                <p id="status-cine"><i>Cargando cartelera...</i></p>
-                
-                <!-- Pestañas de días -->
-                <div style="display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; border-bottom: 2px solid #333;">
-                    <button class="tab-cine active" onclick="cambiarDiaCine(event, 'Lunes')" style="flex: 1; min-width: 60px;">Lun</button>
-                    <button class="tab-cine" onclick="cambiarDiaCine(event, 'Martes')" style="flex: 1; min-width: 60px;">Mar</button>
-                    <button class="tab-cine" onclick="cambiarDiaCine(event, 'Miércoles')" style="flex: 1; min-width: 70px;">Mié</button>
-                    <button class="tab-cine" onclick="cambiarDiaCine(event, 'Jueves')" style="flex: 1; min-width: 60px;">Jue</button>
-                    <button class="tab-cine" onclick="cambiarDiaCine(event, 'Viernes')" style="flex: 1; min-width: 60px;">Vie</button>
-                    <button class="tab-cine" onclick="cambiarDiaCine(event, 'Sábado')" style="flex: 1; min-width: 60px;">Sáb</button>
-                    <button class="tab-cine" onclick="cambiarDiaCine(event, 'Domingo')" style="flex: 1; min-width: 70px;">Dom</button>
-                </div>
-                
-                <!-- Contenido de películas por día -->
-                <div id="lista-cine" style="min-height: 100px;">
-                    <p style="color: #888;">Cargando películas...</p>
-                </div>
-            </div>
-            <button class="btn-update" onclick="actualizarCine()">Actualizar Cartelera</button>
-        </div>
-
-        <div class="card theme-errepar" id="card-errepar">
-            <h2>Separatas Errepar</h2>
-            <div class="content">
-                <p><i id="status-errepar">Buscando actualizaciones...</i></p>
-                <div id="lista-errepar" style="font-size: 0.9rem;">
-                    <p style="color: #888;">Cargando versiones...</p>
-                </div>
-            </div>
-            <button class="btn-update" onclick="actualizarErrepar()">Verificar Versiones</button>
-        </div>
-
-       <div class="card theme-futbol" id="card-noticias">
-            <h2>Conflictos Internacionales</h2>
-            <div class="content">
-                <p><i>Obteniendo datos...</i></p>
-                <ul>
-                    <li>Cargando noticias de múltiples fuentes internacionales...</li>
-                </ul>
-            </div>
-            <button class="btn-update" onclick="updateSection('card-noticias')">Actualizar Noticias</button>
-        </div>
-
     </div>
 
     <script>
@@ -483,6 +516,35 @@
     let tabF1 = "noticias";
     let categoriaMotor = "wec";
     let tabMotor = "noticias";
+    let tabTV = "afrohouse";
+
+    // --- LÓGICA DE CANALES EN VIVO ---
+    function cambiarTabTV(elemento, tab) {
+        document.querySelectorAll('.tab-tv').forEach(t => t.classList.remove('active'));
+        elemento.classList.add('active');
+        tabTV = tab;
+        
+        const lista = document.getElementById('lista-tv');
+        if (tab === 'afrohouse') {
+            lista.innerHTML = `
+                <div class="ratio ratio-16x9">
+                    <iframe src="https://www.youtube.com/embed/oN6OHb9CnOY?autoplay=1&mute=0" allowfullscreen frameborder="0"></iframe>
+                </div>
+            `;
+        } else if (tab === 'imsa') {
+            lista.innerHTML = `
+                <div class="ratio ratio-16x9">
+                    <iframe src="https://www.youtube.com/embed/live_stream?channel=UC58em84jwiyM20qR-iqBDZw" allowfullscreen frameborder="0"></iframe>
+                </div>
+            `;
+        } else if (tab === 'wec') {
+            lista.innerHTML = `
+                <div class="ratio ratio-16x9">
+                    <iframe src="https://www.youtube.com/embed/live_stream?channel=UCwU7U7PiarcJKLjDJTnANjw" allowfullscreen frameborder="0"></iframe>
+                </div>
+            `;
+        }
+    }
 
     // --- LÓGICA DE FÚTBOL ---
     function cambiarEquipo() {
@@ -809,6 +871,7 @@
                             <div style="color: #999; margin-top: 5px; font-size: 0.9rem;">
                                 <em>No se encuentra en stock por el momento</em>
                             </div>
+                            ${info.link_compra ? `<a href="${info.link_compra}" target="_blank" class="btn-update" style="display: inline-block; width: auto; margin-top: 10px; padding: 5px 15px; font-size: 0.8rem; background-color: #666; text-decoration: none; text-align: center;">Ver en Tienda</a>` : ""}
                         </div>
                     `;
                 } else {
@@ -826,6 +889,7 @@
                             ${proxima ? `<div style="color: #ff8700; margin-top: 3px; font-size: 0.9rem;">
                                 <strong>${info.proxima_version}</strong>${estimacion}
                             </div>` : ""}
+                            ${info.link_compra ? `<a href="${info.link_compra}" target="_blank" class="btn-update" style="display: inline-block; width: auto; margin-top: 10px; padding: 5px 15px; font-size: 0.8rem; text-decoration: none; text-align: center;">Comprar Versión ${info.version_actual}</a>` : ""}
                         </div>
                     `;
                 }
@@ -1014,6 +1078,18 @@
     function actualizarMusica() {
         const status = document.getElementById('status-musica');
         if (status) status.innerText = 'Actualizado: ' + new Date().toLocaleTimeString();
+    }
+
+    async function actualizarTV() {
+        const status = document.getElementById('status-tv');
+        if (!status) return;
+        
+        status.innerHTML = '<i>Buscando señales...</i>';
+        
+        // Simular una pequeña demora para feedback visual
+        setTimeout(() => {
+            status.innerText = 'Señales sincronizadas. Última actualización: ' + new Date().toLocaleTimeString();
+        }, 800);
     }
 
     // --- ROTACIÓN DE FONDO (50 imágenes de McLaren Automotive + F1 Racing) ---

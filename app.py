@@ -155,9 +155,37 @@ def obtener_cartelera_cine():
     return cartelera_por_dia
 
 # --- RUTAS ---
+
 @app.route('/')
 def inicio():
+    # Este será tu menú limpio con los botones
     return render_template('index.html')
+
+@app.route('/tv')
+def vista_tv():
+    # Sub-página exclusiva para YouTube/Spotify
+    return render_template('tv.html')
+
+@app.route('/motor')
+def vista_motor():
+    # Sub-página exclusiva para F1, WEC, IMSA
+    return render_template('motor.html')
+
+@app.route('/utilidades')
+def vista_utilidades():
+    return render_template('utilidades.html')
+
+@app.route('/cine')
+def vista_cine():
+    return render_template('cine.html')
+
+@app.route('/futbol')
+def vista_futbol():
+    return render_template('futbol.html')
+
+@app.route('/noticias')
+def vista_noticias():
+    return render_template('noticias.html')
 
 @app.route('/api/noticias')
 def obtener_noticias():
@@ -338,6 +366,79 @@ LINKS_STANDINGS = {
 }
 
 # --- FUNCIONES PARA SCRAPING DE ERREPAR ---
+
+def _search_errepar_products():
+    base_search_url = "https://tiendaonline.errepar.com/busqueda?controller=search&search_query=Separata"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8"
+    }
+    all_products = []
+    
+    for page_num in range(1, 5): # Busca en las primeras 4 páginas
+        search_url = f"{base_search_url}&page={page_num}" if page_num > 1 else base_search_url
+        try:
+            res = requests.get(search_url, headers=headers, timeout=15)
+            if res.status_code == 200:
+                sopa = BeautifulSoup(res.text, "html.parser")
+                
+                # MÉTODO ROBUSTO: Buscar por todos los enlaces (<a>) en lugar de clases CSS que cambian
+                enlaces = sopa.find_all("a")
+                
+                for a in enlaces:
+                    title = a.get_text(strip=True)
+                    link = a.get("href", "")
+                    
+                    # Filtramos: Si tiene texto, dice "separata" y es un link real
+                    if title and "separata" in title.lower() and link.startswith("http"):
+                        # Evitar agregar el mismo producto duplicado
+                        if not any(p["link"] == link for p in all_products):
+                            all_products.append({"title": title, "link": link})
+        except Exception as e:
+            print(f"Error searching Errepar products on page {page_num}: {e}")
+            
+    return all_products
+
+def _scrape_errepar_product_page(product_url, product_title):
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
+    product_info = {
+        "version_actual": None,
+        "fecha_version": datetime.now().strftime("%Y-%m"), # Fallback visual
+        "disponible": False
+    }
+    
+    # 1. Intentar sacar la versión directamente del título primero (Ej: "Separata IVA 4.1")
+    version_match = re.search(r"(\d+\.\d+)", product_title)
+    if version_match:
+        product_info["version_actual"] = version_match.group(1)
+
+    try:
+        res = requests.get(product_url, headers=headers, timeout=15)
+        if res.status_code == 200:
+            sopa = BeautifulSoup(res.text, "html.parser")
+            
+            # 2. Si no tenía números en el título, buscar la palabra "Versión X.X" adentro de la página
+            if not product_info["version_actual"]:
+                v_match = re.search(r"versión\s*([\d]+\.[\d]+)", res.text, re.IGNORECASE)
+                if v_match:
+                    product_info["version_actual"] = v_match.group(1)
+                else:
+                    product_info["version_actual"] = "Última" # Valor de rescate para que no falle el HTML
+
+            # Verificar disponibilidad
+            html_text = res.text.lower()
+            if sopa.find("button", class_="add-to-cart") or "comprar" in html_text or "añadir al carrito" in html_text or "stock" in html_text:
+                product_info["disponible"] = True
+                
+    except Exception as e:
+        print(f"Error scraping product page {product_url}: {e}")
+        
+    # Seguro antierrores: Si encontramos la versión pero falló el check de botón, la marcamos disponible igual
+    if product_info["version_actual"] and not product_info["disponible"]:
+         product_info["disponible"] = True
+         
+    return product_info
+
 def obtener_separatas_errepar():
     """Obtiene información en tiempo real de las separatas disponibles en Errepar"""
     separatas = {
@@ -347,69 +448,46 @@ def obtener_separatas_errepar():
             "fecha_version": None,
             "proxima_version": None,
             "estimacion_proxima": None,
-            "disponible": False
+            "disponible": False,
+            "link_compra": None
         },
         "ganancias": {
-            "nombre": "Separata de Ganancias - Bienes Personales",
+            "nombre": "Separata de Ganancias",
             "version_actual": None,
             "fecha_version": None,
             "proxima_version": None,
             "estimacion_proxima": None,
-            "disponible": False
+            "disponible": False,
+            "link_compra": None
         }
     }
     
     try:
-        headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"}
+        all_products = _search_errepar_products()
         
-        # === BÚSQUEDA DE SEPARATA IVA ===
-        try:
-            url_iva = "https://tiendaonline.errepar.com/impuesto/44464275-sep-impuesto-al-valor-agregado-version-57-9789870134589.html"
-            res = requests.get(url_iva, headers=headers, timeout=15)
+        for product in all_products:
+            title = product["title"].lower()
+            link_lower = product["link"].lower() # Extraemos la URL en minúscula
+            link_original = product["link"]
             
-            if res.status_code == 200:
-                # Buscar "Version 5.7" o similar en el contenido
-                if 'version' in res.text.lower() and ('5.7' in res.text or '57' in res.text):
-                    separatas["iva"]["version_actual"] = "5.7"
-                    separatas["iva"]["disponible"] = True
-                    separatas["iva"]["fecha_version"] = "2026-02"
-                    
-                    # Verificar si está en stock buscando "COMPRAR" button
-                    if 'comprar' in res.text.lower():
-                        separatas["iva"]["disponible"] = True
-        except Exception as e:
-            print(f"Error buscando IVA: {e}")
-        
-        # === BÚSQUEDA DE SEPARATA GANANCIAS ===
-        # Buscar en la categoría de Ganancias
-        try:
-            url_ganancias = "https://tiendaonline.errepar.com/32-ganacias"
-            res = requests.get(url_ganancias, headers=headers, timeout=15)
+            # FIX PARA IVA: Buscamos también en la URL por si el título visual está cortado (ej: "Valor...")
+            if ("valor agregado" in title or "iva" in title or "valor-agregado" in link_lower or "impuesto-al-valor" in link_lower) and not separatas["iva"]["version_actual"]:
+                info = _scrape_errepar_product_page(link_original, product["title"])
+                if info["version_actual"]:
+                    separatas["iva"].update(info)
+                    separatas["iva"]["link_compra"] = link_original
             
-            if res.status_code == 200:
-                sopa = BeautifulSoup(res.text, "html.parser")
-                
-                # Buscar todos los elementos que contengan "separata"
-                encontrado = False
-                
-                # Buscar en títulos de productos
-                for elem in sopa.find_all(['h2', 'h3', 'a', 'span']):
-                    texto = elem.get_text(strip=True).lower()
+            # FIX PARA GANANCIAS: Le sumamos la lectura de URL por las dudas para que sea igual de robusto
+            if ("ganancias" in title or "ganancias" in link_lower) and not separatas["ganancias"]["version_actual"]:
+                info = _scrape_errepar_product_page(link_original, product["title"])
+                if info["version_actual"]:
+                    separatas["ganancias"].update(info)
+                    separatas["ganancias"]["link_compra"] = link_original
                     
-                    # Buscar "separata" combinado con "ganancias"
-                    if 'separata' in texto and 'ganancias' in texto:
-                        # Extraer número de versión (buscar patrón X.X)
-                        match = re.search(r'([\d]+\.[\d]+)', elem.get_text(strip=True))
-                        if match:
-                            version = match.group(1)
-                            separatas["ganancias"]["version_actual"] = version
-                            separatas["ganancias"]["disponible"] = True
-                            separatas["ganancias"]["fecha_version"] = "2026"
-                            encontrado = True
-                            break
-        except Exception as e:
-            print(f"Error buscando Ganancias: {e}")
-        
+            # Detener si ya encontramos ambas
+            if separatas["iva"]["version_actual"] and separatas["ganancias"]["version_actual"]:
+                break
+                
     except Exception as e:
         print(f"Error general en scraping Errepar: {e}")
     

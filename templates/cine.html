@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cine Rex Viedma - Mi Portal</title>
+    <link rel="icon" type="image/png" href="/static/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ====== VARIABLES Y BASE ====== */
+        :root {
+            --text-main: #f1f3f8;
+            --accent-cine: #E5A93D; /* Dorado Premium */
+            --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --max-width: 900px;
+        }
+
+        body {
+            margin: 0;
+            color: var(--text-main);
+            font-family: var(--font);
+            min-height: 100vh;
+            background-color: #06080d;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            filter: brightness(0.35) contrast(1.1) saturate(1.2);
+            transition: background-image 2s ease-in-out;
+        }
+
+        /* ====== NAVEGACIÓN ====== */
+        .top-nav {
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        .btn-back {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-back:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(-5px);
+        }
+
+        .btn-update {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-weight: 700;
+            width: 100%;
+            margin-top: 20px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            /* Estos aseguran que el link se comporte como botón */
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            box-sizing: border-box;
+        }
+
+        .btn-update:hover {
+            background: var(--accent-cine);
+            border-color: var(--accent-cine);
+            color: white; /* Evita que el link cambie a azul o violeta */
+            box-shadow: 0 0 20px rgba(229, 169, 61, 0.4);
+        }
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 0;
+            letter-spacing: -1px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.4) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ====== CARTELERA GLASS ====== */
+        .dashboard {
+            width: min(100%, var(--max-width));
+            margin: 0 auto 40px;
+            padding: 0 20px;
+        }
+
+        .glass-card {
+            background: rgba(18, 18, 22, 0.35);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(25px);
+            padding: 35px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            min-height: 60vh;
+        }
+
+        /* Pestañas de Días */
+        .tab-menu {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 15px;
+        }
+
+        .tab-btn {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255, 255, 255, 0.5);
+            padding: 10px 18px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover { background: rgba(255,255,255,0.1); color: white; }
+        .tab-btn.active {
+            background: rgba(229, 169, 61, 0.2);
+            border-color: var(--accent-cine);
+            color: white;
+            box-shadow: 0 0 15px rgba(229, 169, 61, 0.2);
+        }
+
+        /* ====== BURBUJAS DE PELÍCULAS (Liquid Glass Gris Base) ====== */
+        .movie-bubble {
+            background: rgba(18, 18, 22, 0.35); /* Neutral transparente gris */
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.12); /* Borde sutil blanco */
+            backdrop-filter: blur(25px); /* Efecto esmerilado líquido */
+            -webkit-backdrop-filter: blur(25px);
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.05), 0 10px 20px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .movie-bubble:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.05); /* Ligeramente más claro en hover */
+        }
+
+        /* ESTADO DISPONIBLE (Resaltado Oro Premium) */
+        .movie-bubble.is-available {
+            border-left: 5px solid var(--accent-cine); /* Resaltado gold */
+            border-color: rgba(229, 169, 61, 0.3); /* Tint sutil a los bordes */
+            box-shadow: 
+                inset 0 2px 3px rgba(255, 255, 255, 0.05),
+                0 0 20px rgba(229, 169, 61, 0.15), /* Brillo externo amarillo suave */
+                0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        /* ESTADO NO DISPONIBLE (Burbuja neutra gris con menos opacidad) */
+        .movie-bubble.not-available {
+            opacity: 0.6; /* Opacidad reducida general */
+        }
+
+        /* Elementos internos */
+        .movie-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 0;
+            color: white;
+            transition: color 0.3s ease;
+        }
+        /* Título más gris si no está disponible */
+        .movie-bubble.not-available .movie-title {
+            color: rgba(255, 255, 255, 0.6); 
+        }
+
+        .movie-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 5px;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+        }
+        .movie-info span i {
+            color: rgba(255, 255, 255, 0.6); /* Iconos por defecto grises */
+            margin-right: 5px;
+            transition: color 0.3s ease;
+        }
+        /* Iconos amarillos solo si disponible */
+        .movie-bubble.is-available .movie-info span i {
+            color: var(--accent-cine); 
+        }
+
+        .showtimes {
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-size: 1rem;
+            color: white;
+            transition: all 0.3s ease;
+            /* Default oscuro neutro */
+            background: rgba(0, 0, 0, 0.4); 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        /* Tachado y gris si no disponible */
+        .movie-bubble.not-available .showtimes {
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: line-through; 
+        }
+        /* Fondo amarillo suave solo si disponible */
+        .movie-bubble.is-available .showtimes {
+            background: rgba(229, 169, 61, 0.15); 
+            border-color: rgba(229, 169, 61, 0.3);
+            font-weight: 700;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <div class="top-nav">
+        <a href="/" class="btn-back"><i class="fas fa-arrow-left"></i> Volver al Inicio</a>
+        <h1 class="page-title">Cartelera</h1>
+    </div>
+
+    <div class="dashboard">
+        <div class="glass-card">
+            
+            <div class="tab-menu">
+                <button class="tab-btn active" onclick="cambiarDia(event, 'Lunes')">Lun</button>
+                <button class="tab-btn" onclick="cambiarDia(event, 'Martes')">Mar</button>
+                <button class="tab-btn" onclick="cambiarDia(event, 'Miércoles')">Mié</button>
+                <button class="tab-btn" onclick="cambiarDia(event, 'Jueves')">Jue</button>
+                <button class="tab-btn" onclick="cambiarDia(event, 'Viernes')">Vie</button>
+                <button class="tab-btn" onclick="cambiarDia(event, 'Sábado')">Sáb</button>
+                <button class="tab-btn" onclick="cambiarDia(event, 'Domingo')">Dom</button>
+            </div>
+
+            <div id="lista-cine" style="flex-grow: 1;">
+                <p style="text-align: center; color: rgba(255,255,255,0.4); margin-top: 50px;">Consultando boletería...</p>
+            </div>
+            
+            <a href="http://cinerexviedma.com.ar/" target="_blank" class="btn-update" style="text-decoration: none; display: block; text-align: center;">
+                <i class="fas fa-ticket-alt"></i> Comprar Entradas Oficiales
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // --- FONDOS MCLAREN ---
+        const bgImages = [
+            "https://website-images.mclaren.com/1918/mclaren-world-of-mclaren-wallpapers-gt-gallery-1.jpg",
+            "https://website-images.mclaren.com/1951/mclaren-world-of-mclaren-wallpapers-720s-gallery-1.jpg",
+            "https://website-images.mclaren.com/1930/mclaren-world-of-mclaren-wallpapers-artura-gallery-4.jpg"
+        ];
+
+        function rotarFondo() {
+            const index = Math.floor(Math.random() * bgImages.length);
+            const style = document.createElement('style');
+            style.textContent = `body::before { background-image: url('${bgImages[index]}'); }`;
+            const existing = document.getElementById('bg-rotator');
+            if (existing) existing.remove();
+            style.id = 'bg-rotator';
+            document.head.appendChild(style);
+        }
+
+        // --- LÓGICA DEL CINE ---
+        let diaActual = "Lunes";
+        let datosCartelera = {};
+
+        function cambiarDia(event, dia) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            diaActual = dia;
+            renderizarPeliculas();
+        }
+
+        async function actualizarCine() {
+            const lista = document.getElementById('lista-cine');
+            lista.innerHTML = "<p style='text-align:center; color:rgba(255,255,255,0.4);'>Consultando boletería...</p>";
+            try {
+                const res = await fetch('/api/cine/cartelera');
+                datosCartelera = await res.json();
+                renderizarPeliculas();
+            } catch (e) {
+                lista.innerHTML = "<p style='color:#ff4444; text-align:center;'>Error al conectar con el cine.</p>";
+            }
+        }
+
+        function renderizarPeliculas() {
+            const lista = document.getElementById('lista-cine');
+            const pelis = datosCartelera[diaActual] || [];
+            
+            if (pelis.length === 0) {
+                lista.innerHTML = "<p style='text-align:center; color:rgba(255,255,255,0.4); margin-top: 30px;'>No hay funciones programadas para el " + diaActual + ".</p>";
+                return;
+            }
+
+            lista.innerHTML = pelis.map(p => {
+                // --- LÓGICA DE RESALTADO INTELIGENTE ---
+                // Asumimos que la API devuelve p.disponible (boolean) o que hay horarios listados.
+                const tieneHorarios = Array.isArray(p.horarios) ? p.horarios.length > 0 : (p.horarios && !p.horarios.toLowerCase().includes("cerrado"));
+                const estaDisponible = p.disponible === true || (p.disponible === undefined && tieneHorarios);
+                
+                // Definir clases y contenido basado en el estado
+                const bubbleClass = estaDisponible ? "is-available" : "not-available";
+                const iconoShowtimes = estaDisponible ? "fa-calendar-check" : "fa-lock";
+                const textoHorariosRaw = Array.isArray(p.horarios) ? p.horarios.join(" - ") : (p.horarios || "(Sin horarios)");
+                const textoHorariosFinal = estaDisponible ? textoHorariosRaw : "(Cerrado/No disponible)";
+
+                return `
+                    <div class="movie-bubble ${bubbleClass}">
+                        <h3 class="movie-title">${p.titulo}</h3>
+                        <div class="movie-info">
+                            <span><i class="fas fa-users"></i> ${p.clasificacion}</span>
+                            <span><i class="far fa-clock"></i> ${p.duracion} min</span>
+                            <span><i class="fas fa-theater-masks"></i> ${p.genero}</span>
+                        </div>
+                        <div class="showtimes">
+                            <i class="fas ${iconoShowtimes}"></i> Funciones: ${textoHorariosFinal}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Inicio
+        window.addEventListener('load', () => {
+            rotarFondo();
+            setInterval(rotarFondo, 120000);
+            actualizarCine();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Utilidades - Mi Portal</title>
+    <link rel="icon" type="image/png" href="/static/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --accent: #5BA3A8; --font: 'Segoe UI', sans-serif; }
+        body { margin: 0; color: white; font-family: var(--font); background: #06080d; min-height: 100vh; overflow-x: hidden; }
+        body::before { content: ''; position: fixed; inset: 0; z-index: -1; background-size: cover; background-position: center; filter: brightness(0.35); transition: background-image 2s ease-in-out; }
+        .top-nav { padding: 30px; display: flex; justify-content: space-between; align-items: center; max-width: 800px; margin: 0 auto; }
+        .btn-back { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.2); color: white; text-decoration: none; padding: 12px 25px; border-radius: 30px; backdrop-filter: blur(10px); }
+        .page-title { font-size: 2.5rem; font-weight: 800; background: linear-gradient(180deg, white 0%, rgba(255,255,255,0.4) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        .dashboard { max-width: 800px; margin: 0 auto; padding: 20px; }
+        .glass-card { background: rgba(18, 18, 22, 0.35); border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.12); backdrop-filter: blur(25px); padding: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .item-bubble { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 20px; margin-bottom: 15px; border-left: 4px solid var(--accent); }
+        .btn-update { background: rgba(255, 255, 255, 0.1); color: white; border: 1px solid rgba(255,255,255,0.2); padding: 12px; border-radius: 999px; cursor: pointer; width: 100%; margin-top: 20px; font-weight: bold; }
+        .btn-store { display: inline-block; background: rgba(91, 163, 168, 0.2); color: var(--accent); border: 1px solid var(--accent); padding: 8px 18px; border-radius: 20px; text-decoration: none; font-size: 0.85rem; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="top-nav">
+        <a href="/" class="btn-back"><i class="fas fa-arrow-left"></i> Inicio</a>
+        <h1 class="page-title">Errepar</h1>
+    </div>
+    <div class="dashboard">
+        <div class="glass-card">
+            <div id="lista-errepar">Cargando...</div>
+            <button class="btn-update" onclick="actualizarErrepar()">Verificar Versiones</button>
+        </div>
+    </div>
+    <script>
+        const bgImages = ["https://website-images.mclaren.com/1918/mclaren-world-of-mclaren-wallpapers-gt-gallery-1.jpg", "https://website-images.mclaren.com/1951/mclaren-world-of-mclaren-wallpapers-720s-gallery-1.jpg"];
+        function rotar() { document.body.style.backgroundImage = `url(${bgImages[Math.floor(Math.random()*bgImages.length)]})`; }
+        async function actualizarErrepar() {
+            const res = await fetch('/api/errepar/separatas');
+            const datos = await res.json();
+            let html = "";
+            for (const [k, v] of Object.entries(datos)) {
+                html += `<div class="item-bubble"><h3>${v.nombre}</h3><p>Versión: <strong>${v.version_actual}</strong></p><a href="${v.link_compra}" target="_blank" class="btn-store">Ver en Tienda</a></div>`;
+            }
+            document.getElementById('lista-errepar').innerHTML = html;
+        }
+        window.onload = () => { rotar(); actualizarErrepar(); };
+    </script>
+</body>
+</html>

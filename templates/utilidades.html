@@ -6,6 +6,19 @@
     <link rel="icon" type="image/png" href="/static/favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* RESET GLOBAL: Evita el desborde y el zoom innecesario */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            overflow-x: hidden; /* Prohibido el scrolleo horizontal */
+            -webkit-text-size-adjust: 100%; /* Evita que el navegador agrande la letra solo */
+        }
+        
         :root { --accent: #5BA3A8; --font: 'Segoe UI', sans-serif; }
         body { margin: 0; color: white; font-family: var(--font); background: #06080d; min-height: 100vh; overflow-x: hidden; }
         body::before { content: ''; position: fixed; inset: 0; z-index: -1; background-size: cover; background-position: center; filter: brightness(0.35); transition: background-image 2s ease-in-out; }

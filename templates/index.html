@@ -6,6 +6,18 @@
     <title>Mi Portal Personal</title>
     <link rel="icon" type="image/png" href="/static/favicon.png">
     <style>
+        /* RESET GLOBAL: Evita el desborde y el zoom innecesario */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            overflow-x: hidden; /* Prohibido el scrolleo horizontal */
+            -webkit-text-size-adjust: 100%; /* Evita que el navegador agrande la letra solo */
+        }
         /* ====== Variables de tema (Pantone) ====== */
         :root {
             --bg-primary: #06080d;

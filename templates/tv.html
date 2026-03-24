@@ -20,7 +20,7 @@
             overflow-x: hidden; /* Prohibido el scrolleo horizontal */
             -webkit-text-size-adjust: 100%; /* Evita que el navegador agrande la letra solo */
         }
-        
+
         /* ====== VARIABLES ====== */
         :root {
             --text-main: #f1f3f8;
@@ -240,6 +240,38 @@
             .ratio-16x9 {
                 border-radius: 12px !important;
             }
+        }
+
+        /* 1. Arreglo para Horizontal (Foto 1): Permitimos que la card crezca al rotar el celu */
+        @media (max-width: 900px) and (orientation: landscape) {
+            .dashboard {
+                padding: 10px !important; /* Mínimo margen */
+                margin: 0 !important;
+                max-width: 100% !important; /* La card usa todo el ancho del celu horizontal */
+                align-items: center !important;
+            }
+            .glass-card {
+                max-width: 100% !important;
+                margin: 0 !important;
+            }
+        }
+
+        /* 2. Arreglo para el botón de Maximizar (Foto 2 y General): Ignoramos restricciones de parents */
+        /* Target específico para cuando el elemento nativo de maximizar está activo en Android Chrome */
+        :-webkit-full-screen .dashboard,
+        :-webkit-full-screen .glass-card,
+        :-webkit-full-screen .ratio {
+            width: 100vw !important;
+            height: 100vh !important;
+            max-width: none !important;
+            max-height: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            z-index: 2147483647 !important; /* Máximo z-index posible */
+            background-color: black !important; /* Fondo negro sólido para evitar fugas */
         }
     </style>
 </head>

@@ -74,5 +74,3 @@ Una vez desplegado, podrás acceder desde tu celular usando la URL que te dé el
 ## 🎯 Recomendación
 
 **Empieza con Render** - es el más sencillo para principiantes y tiene buena documentación.
-
-¿Necesitas ayuda con algún paso específico?

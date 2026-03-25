@@ -260,45 +260,31 @@
         /* 2. Arreglo para el botón de Maximizar (Foto 2 y General): Ignoramos restricciones de parents */
         /* Target específico para cuando el elemento nativo de maximizar está activo en Android Chrome */
         /* Estilos para el iframe en modo pantalla completa */
-        /* Para Webkit (Chrome, Safari, nuevos Edge) */
-        :-webkit-full-screen iframe#reproductor-tv {
+        /* Cuando el documento está en pantalla completa, asegurar que el contenedor del video ocupe todo el espacio */
+        :-webkit-full-screen .ratio,
+        :-moz-full-screen .ratio,
+        :-ms-fullscreen .ratio,
+        :fullscreen .ratio {
             width: 100vw !important;
             height: 100vh !important;
-            top: 0 !important;
-            left: 0 !important;
-            position: fixed !important; /* Usar fixed para asegurar que ocupe toda la ventana */
-            z-index: 9999 !important; /* Asegurar que esté por encima de todo */
-            background-color: black !important;
-        }
-        /* Para Firefox */
-        :-moz-full-screen iframe#reproductor-tv {
-            width: 100vw !important;
-            height: 100vh !important;
-            top: 0 !important;
-            left: 0 !important;
             position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
             z-index: 9999 !important;
             background-color: black !important;
+            border-radius: 0 !important; /* Eliminar bordes redondeados en fullscreen */
         }
-        /* Para IE/Edge (antiguo) */
-        :-ms-fullscreen iframe#reproductor-tv {
-            width: 100vw !important;
-            height: 100vh !important;
+
+        /* Asegurar que el iframe dentro del ratio también ocupe el 100% */
+        :-webkit-full-screen .ratio iframe,
+        :-moz-full-screen .ratio iframe,
+        :-ms-fullscreen .ratio iframe,
+        :fullscreen .ratio iframe {
+            width: 100% !important;
+            height: 100% !important;
+            position: absolute !important; /* Mantener absolute dentro del fixed parent */
             top: 0 !important;
             left: 0 !important;
-            position: fixed !important;
-            z-index: 9999 !important;
-            background-color: black !important;
-        }
-        /* Estándar W3C */
-        :fullscreen iframe#reproductor-tv {
-            width: 100vw !important;
-            height: 100vh !important;
-            top: 0 !important;
-            left: 0 !important;
-            position: fixed !important;
-            z-index: 9999 !important;
-            background-color: black !important;
         }
     </style>
 </head>

@@ -81,8 +81,80 @@
         </div>
     </div>
     <script>
-        const bgImages = ["https://website-images.mclaren.com/1918/mclaren-world-of-mclaren-wallpapers-gt-gallery-1.jpg", "https://website-images.mclaren.com/1951/mclaren-world-of-mclaren-wallpapers-720s-gallery-1.jpg"];
-        function rotar() { document.body.style.backgroundImage = `url(${bgImages[Math.floor(Math.random()*bgImages.length)]})`; }
+        const bgImages = [
+            // McLaren Automotive - ARTURA (6)
+            "https://website-images.mclaren.com/1934/mclaren-world-of-mclaren-wallpapers-artura-gallery-1.jpg",
+            "https://website-images.mclaren.com/1931/mclaren-world-of-mclaren-wallpapers-artura-gallery-2.jpg",
+            "https://website-images.mclaren.com/1935/mclaren-world-of-mclaren-wallpapers-artura-gallery-3.jpg",
+            "https://website-images.mclaren.com/1930/mclaren-world-of-mclaren-wallpapers-artura-gallery-4.jpg",
+            "https://website-images.mclaren.com/1932/mclaren-world-of-mclaren-wallpapers-artura-gallery-5.jpg",
+            "https://website-images.mclaren.com/1933/mclaren-world-of-mclaren-wallpapers-artura-gallery-6.jpg",
+            // McLaren Automotive - ELVA (6)
+            "https://website-images.mclaren.com/1924/mclaren-world-of-mclaren-wallpapers-elva-gallery-1.jpg",
+            "https://website-images.mclaren.com/1925/mclaren-world-of-mclaren-wallpapers-elva-gallery-2.jpg",
+            "https://website-images.mclaren.com/1926/mclaren-world-of-mclaren-wallpapers-elva-gallery-3.jpg",
+            "https://website-images.mclaren.com/1927/mclaren-world-of-mclaren-wallpapers-elva-gallery-4.jpg",
+            "https://website-images.mclaren.com/1928/mclaren-world-of-mclaren-wallpapers-elva-gallery-5.jpg",
+            "https://website-images.mclaren.com/1929/mclaren-world-of-mclaren-wallpapers-elva-gallery-6.jpg",
+            // McLaren Automotive - 765LT (6)
+            "https://website-images.mclaren.com/1936/mclaren-world-of-mclaren-wallpapers-765lt-gallery-1.jpg",
+            "https://website-images.mclaren.com/1937/mclaren-world-of-mclaren-wallpapers-765lt-gallery-2.jpg",
+            "https://website-images.mclaren.com/1939/mclaren-world-of-mclaren-wallpapers-765lt-gallery-3.jpg",
+            "https://website-images.mclaren.com/1938/mclaren-world-of-mclaren-wallpapers-765lt-gallery-4.jpg",
+            "https://website-images.mclaren.com/1941/mclaren-world-of-mclaren-wallpapers-765lt-gallery-5.jpg",
+            "https://website-images.mclaren.com/1940/mclaren-world-of-mclaren-wallpapers-765lt-gallery-6.jpg",
+            // McLaren Automotive - 720S SPIDER (9)
+            "https://website-images.mclaren.com/1942/mclaren-world-of-mclaren-wallpapers-720s-spider-gallery-1.jpg",
+            "https://website-images.mclaren.com/1943/mclaren-world-of-mclaren-wallpapers-720s-spider-gallery-2.jpg",
+            "https://website-images.mclaren.com/1944/mclaren-world-of-mclaren-wallpapers-720s-spider-gallery-3.jpg",
+            "https://website-images.mclaren.com/1945/mclaren-world-of-mclaren-wallpapers-720s-spider-gallery-4.jpg",
+            "https://website-images.mclaren.com/1946/mclaren-world-of-mclaren-wallpapers-720s-spider-gallery-5.jpg",
+            "https://website-images.mclaren.com/1947/mclaren-world-of-mclaren-wallpapers-720s-spider-gallery-6.jpg",
+            "https://website-images.mclaren.com/1948/mclaren-world-of-mclaren-wallpapers-720s-spider-gallery-7.jpg",
+            "https://website-images.mclaren.com/1949/mclaren-world-of-mclaren-wallpapers-720s-spider-gallery-8.jpg",
+            "https://website-images.mclaren.com/1950/mclaren-world-of-mclaren-wallpapers-720s-spider-gallery-9.jpg",
+            // McLaren Automotive - 600LT SPIDER (6)
+            "https://website-images.mclaren.com/1954/mclaren-world-of-mclaren-wallpapers-600lt-spider-gallery-1.jpg",
+            "https://website-images.mclaren.com/1955/mclaren-world-of-mclaren-wallpapers-600lt-spider-gallery-2.jpg",
+            "https://website-images.mclaren.com/1956/mclaren-world-of-mclaren-wallpapers-600lt-spider-gallery-3.jpg",
+            "https://website-images.mclaren.com/1957/mclaren-world-of-mclaren-wallpapers-600lt-spider-gallery-4.jpg",
+            "https://website-images.mclaren.com/1959/mclaren-world-of-mclaren-wallpapers-600lt-spider-gallery-5.jpg",
+            "https://website-images.mclaren.com/1958/mclaren-world-of-mclaren-wallpapers-600lt-spider-gallery-6.jpg",
+            // McLaren Automotive - 720S (3)
+            "https://website-images.mclaren.com/1951/mclaren-world-of-mclaren-wallpapers-720s-gallery-1.jpg",
+            "https://website-images.mclaren.com/1952/mclaren-world-of-mclaren-wallpapers-720s-gallery-2.jpg",
+            "https://website-images.mclaren.com/1953/mclaren-world-of-mclaren-wallpapers-720s-gallery-3.jpg",
+            // McLaren Automotive - 600LT (3)
+            "https://website-images.mclaren.com/1960/mclaren-world-of-mclaren-wallpapers-600lt-gallery-1.jpg",
+            "https://website-images.mclaren.com/1961/mclaren-world-of-mclaren-wallpapers-600lt-gallery-2.jpg",
+            "https://website-images.mclaren.com/1962/mclaren-world-of-mclaren-wallpapers-600lt-gallery-3.jpg",
+            // McLaren Automotive - GT (6)
+            "https://website-images.mclaren.com/1918/mclaren-world-of-mclaren-wallpapers-gt-gallery-1.jpg",
+            "https://website-images.mclaren.com/1919/mclaren-world-of-mclaren-wallpapers-gt-gallery-2.jpg",
+            "https://website-images.mclaren.com/1921/mclaren-world-of-mclaren-wallpapers-gt-gallery-3.jpg",
+            "https://website-images.mclaren.com/1920/mclaren-world-of-mclaren-wallpapers-gt-gallery-4.jpg",
+            "https://website-images.mclaren.com/1922/mclaren-world-of-mclaren-wallpapers-gt-gallery-5.jpg",
+            "https://website-images.mclaren.com/1923/mclaren-world-of-mclaren-wallpapers-gt-gallery-6.jpg",
+            // McLaren Automotive - SPEEDTAIL (3)
+            "https://website-images.mclaren.com/1914/mclaren-world-of-mclaren-wallpapers-speedtail-gallery-1.jpg",
+            "https://website-images.mclaren.com/1916/mclaren-world-of-mclaren-wallpapers-speedtail-gallery-2.jpg",
+            "https://website-images.mclaren.com/1917/mclaren-world-of-mclaren-wallpapers-speedtail-gallery-3.jpg",
+            // McLaren Racing - F1 2026 (5)
+            "https://images.ctfassets.net/gy95mqeyjg28/4DCWEw7FYzoky73roJSLpZ/16228392768ba87c63147fee8d390e5b/launch_2026_mcl40_desktop-2.png?w=1600&q=75&fm=webp",
+            "https://images.ctfassets.net/gy95mqeyjg28/2gtUGEfRaDDXILBqVSIj4Q/c57799cbb8b458aca1b953dc5d1703cc/launch_2026_lando_desktop.jpg?w=1600&q=75&fm=webp",
+            "https://images.ctfassets.net/gy95mqeyjg28/5eFFdEkNfSJRI8fjAmk1IX/6463449c24e60400e609c14b95bdb37d/launch_2026_oscar_desktop.jpg?w=1600&q=75&fm=webp",
+            "https://images.ctfassets.net/gy95mqeyjg28/5SspkifVUHCKa8Q8iMJbL1/3b568237378cef02398d7c8416880bd3/abu-dhabi-team-pic-2025-desktop-wallpaper.webp?w=1600&q=75",
+            "https://images.ctfassets.net/gy95mqeyjg28/jV7wzpNM81sJbTsydOOnm/39defa649d545c2e8417bb944a85c0ca/lando-world-champion-graphic-desktop.webp?w=1600&q=75",
+        ];
+        function rotar() {
+            const imgUrl = bgImages[Math.floor(Math.random() * bgImages.length)];
+            const style = document.createElement('style');
+            style.textContent = `body::before { background-image: url('${imgUrl}'); }`;
+            const existing = document.getElementById('bg-rotator');
+            if (existing) existing.remove();
+            style.id = 'bg-rotator';
+            document.head.appendChild(style);
+        }
         async function actualizarErrepar() {
             const res = await fetch('/api/errepar/separatas');
             const datos = await res.json();

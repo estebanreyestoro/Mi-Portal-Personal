@@ -21,7 +21,7 @@
         
         :root { --accent: #5BA3A8; --font: 'Segoe UI', sans-serif; }
         body { margin: 0; color: white; font-family: var(--font); background: #06080d; min-height: 100vh; overflow-x: hidden; }
-        body::before { content: ''; position: fixed; inset: 0; z-index: -1; background-size: cover; background-position: center; filter: brightness(0.35); transition: background-image 2s ease-in-out; }
+        body::before { content: ''; position: fixed; inset: 0; z-index: -1; background-size: cover; background-position: center; background-attachment: fixed; filter: brightness(0.52) contrast(1.15) saturate(0.95); opacity: 1; transition: opacity 2s ease-in-out; pointer-events: none; }
         .top-nav { padding: 30px; display: flex; justify-content: space-between; align-items: center; max-width: 800px; margin: 0 auto; }
         .btn-back { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.2); color: white; text-decoration: none; padding: 12px 25px; border-radius: 30px; backdrop-filter: blur(10px); }
         .page-title { font-size: 2.5rem; font-weight: 800; background: linear-gradient(180deg, white 0%, rgba(255,255,255,0.4) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }

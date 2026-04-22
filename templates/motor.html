@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Motorsport & F1 - Mi Portal</title>
     <link rel="icon" type="image/png" href="/static/favicon.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Font Awesome cargado solo en desktop (ahorra ~100KB en móviles) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="(min-width: 901px)">
     
     <style>
         /* RESET GLOBAL: Evita el desborde y el zoom innecesario */
@@ -50,6 +51,13 @@
             background-attachment: fixed;
             filter: brightness(0.35) contrast(1.1) saturate(1.2);
             transition: background-image 2s ease-in-out;
+            background: linear-gradient(135deg, #0d0608 0%, #1d0a0f 50%, #080504 100%) fixed;
+        }
+        
+        @media (max-width: 900px) {
+            body::before {
+                background: linear-gradient(135deg, #0d0608 0%, #1d0a0f 50%, #080504 100%) fixed !important;
+            }
         }
 
         /* ====== NAVEGACIÓN Y HEADER ====== */
@@ -76,6 +84,14 @@
             display: flex;
             align-items: center;
             gap: 10px;
+        }
+        
+        @media (max-width: 900px) {
+            .btn-back {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                background: rgba(255, 255, 255, 0.08);
+            }
         }
 
         .btn-back:hover {
@@ -117,6 +133,16 @@
             display: flex;
             flex-direction: column;
             max-height: 75vh;
+        }
+        
+        @media (max-width: 900px) {
+            .glass-card {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                background: rgba(18, 18, 22, 0.75);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+                max-height: none;
+            }
         }
 
         .glass-card h2 {
@@ -180,6 +206,13 @@
             outline: none;
             cursor: pointer;
             backdrop-filter: blur(10px);
+        }
+        
+        @media (max-width: 900px) {
+            .select-glass {
+                backdrop-filter: none !important;
+                background: rgba(0,0,0,0.6);
+            }
         }
 
         .select-glass option {

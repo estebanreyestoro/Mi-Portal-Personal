@@ -189,24 +189,41 @@ def vista_noticias():
 
 @app.route('/api/noticias')
 def obtener_noticias():
-    url = "https://feeds.bbci.co.uk/mundo/rss.xml"
-    noticias = []
-    try:
-        res = requests.get(url, timeout=10)
-        sopa = BeautifulSoup(res.text, "xml")
-        for item in sopa.find_all('item', limit=5):
-            fecha_dt = obtener_hora_y_fecha(item.pubDate.text if item.find('pubDate') else "")
-            noticias.append({
-                "titulo": item.title.text,
-                "link": item.link.text,
-                "fuente": "BBC Mundo",
-                "fecha": fecha_dt.strftime("%d/%m") if fecha_dt else "2026",
-                "hora": fecha_dt.strftime("%H:%M") if fecha_dt else "00:00",
-                "timestamp": fecha_dt.timestamp() if fecha_dt else 0
-            })
-    except: pass
-    # Ordenar por timestamp descendente (más recientes primero)
-    noticias_ordenadas = sorted(noticias, key=lambda x: x['timestamp'], reverse=True)
+    # Definir fuentes RSS de geopolítica
+    fuentes_rss = [
+        {"name": "BBC Mundo", "url": "https://feeds.bbci.co.uk/mundo/rss.xml"},
+        {"name": "DW Español", "url": "https://rss.dw.com/rdf/rss-es-all"},
+        {"name": "RT en Español", "url": "https://actualidad.rt.com/rss"},
+        {"name": "France 24 Español", "url": "https://www.france24.com/es/rss"},
+        {"name": "El País Internacional", "url": "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/internacional/portada"}
+    ]
+    
+    todas_noticias = []
+    
+    # Procesar cada fuente por separado
+    for fuente in fuentes_rss:
+        try:
+            res = requests.get(fuente["url"], timeout=10)
+            sopa = BeautifulSoup(res.text, "xml")
+            
+            # Obtener hasta 4 items por fuente
+            for item in sopa.find_all('item', limit=4):
+                fecha_dt = obtener_hora_y_fecha(item.pubDate.text if item.find('pubDate') else "")
+                todas_noticias.append({
+                    "titulo": item.title.text,
+                    "link": item.link.text,
+                    "fuente": fuente["name"],
+                    "fecha": fecha_dt.strftime("%d/%m") if fecha_dt else "2026",
+                    "hora": fecha_dt.strftime("%H:%M") if fecha_dt else "00:00",
+                    "timestamp": fecha_dt.timestamp() if fecha_dt else 0
+                })
+        except Exception as e:
+            # Si una fuente falla, continuar con las demás
+            print(f"Error obteniendo noticias de {fuente['name']}: {e}")
+            continue
+    
+    # Ordenar todas las noticias por timestamp descendente (más recientes primero)
+    noticias_ordenadas = sorted(todas_noticias, key=lambda x: x['timestamp'], reverse=True)
     return jsonify(noticias_ordenadas)
 
 @app.route('/api/futbol/<equipo>/<categoria>')

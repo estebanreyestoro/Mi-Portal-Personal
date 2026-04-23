@@ -62,7 +62,7 @@
 
         /* ====== NAVEGACIÓN Y HEADER ====== */
         .top-nav {
-            padding: 30px 40px;
+            padding: clamp(15px, 4vw, 40px);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -101,7 +101,7 @@
         }
 
         .page-title {
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
             font-weight: 800;
             margin: 0;
             letter-spacing: -1px;
@@ -117,9 +117,15 @@
             width: min(100%, var(--max-width));
             margin: 0 auto 40px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
             padding: 0 20px;
+        }
+        
+        @media (min-width: 901px) {
+            .dashboard {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            }
         }
 
         .glass-card {

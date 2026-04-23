@@ -24,9 +24,9 @@
         body { margin: 0; color: white; font-family: var(--font); background: #06080d; min-height: 100vh; overflow-x: hidden; }
         body::before { content: ''; position: fixed; inset: 0; z-index: -1; background-size: cover; background-position: center; background-attachment: fixed; filter: brightness(0.52) contrast(1.15) saturate(0.95); opacity: 1; transition: opacity 2s ease-in-out; pointer-events: none; background: linear-gradient(135deg, #0a0a0a 0%, #1a1515 50%, #0a0605 100%) fixed; }
         @media (max-width: 900px) { body::before { background: linear-gradient(135deg, #0a0a0a 0%, #1a1515 50%, #0a0605 100%) fixed !important; } }
-        .top-nav { padding: 30px; display: flex; justify-content: space-between; align-items: center; max-width: 800px; margin: 0 auto; }
+        .top-nav { padding: clamp(15px, 4vw, 30px); display: flex; justify-content: space-between; align-items: center; max-width: 800px; margin: 0 auto; }
         .btn-back { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.2); color: white; text-decoration: none; padding: 12px 25px; border-radius: 30px; backdrop-filter: blur(10px); }
-        .page-title { font-size: 2.5rem; font-weight: 800; background: linear-gradient(180deg, white 0%, rgba(255,255,255,0.4) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        .page-title { font-size: clamp(1.8rem, 5vw, 2.5rem); font-weight: 800; background: linear-gradient(180deg, white 0%, rgba(255,255,255,0.4) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
         .dashboard { max-width: 800px; margin: 0 auto; padding: 20px; }
         .glass-card { background: rgba(18, 18, 22, 0.35); border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.12); backdrop-filter: blur(25px); padding: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
         .item-bubble { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 20px; margin-bottom: 15px; border-left: 4px solid var(--accent); }

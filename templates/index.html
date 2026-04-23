@@ -83,7 +83,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 45vh; /* Ocupa casi la mitad de la pantalla */
+            min-height: clamp(35vh, 50vh, 45vh);
             text-align: center;
             margin-bottom: 20px;
             padding: 20px;
@@ -162,9 +162,15 @@
             width: min(100%, var(--max-width));
             margin: 0 auto 40px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
             gap: 20px;
             padding: 0 12px;
+        }
+        
+        @media (min-width: 901px) {
+            .dashboard {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
         }
 
         /* ====== Cards (glass) ====== */

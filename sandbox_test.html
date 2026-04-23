@@ -77,7 +77,7 @@
             min-height: 200px;
         }
 
-        @media (min-width: 901px) {
+        @media (min-width: 1025px) {
             .test-bg {
                 background: linear-gradient(135deg, #0d0608 0%, #1d0a0f 50%, #080504 100%),
                             url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IGZpbGw9IiNmZjAwMDAiIG9wYWNpdHk9IjAuMDUiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiLz48L3N2Zz4=');
@@ -128,7 +128,7 @@
             padding: 0;
         }
 
-        @media (min-width: 901px) {
+        @media (min-width: 1025px) {
             .dashboard {
                 grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
                 gap: 30px;
@@ -146,7 +146,7 @@
             min-height: 150px;
         }
 
-        @media (min-width: 901px) {
+        @media (min-width: 1025px) {
             .glass-card {
                 backdrop-filter: blur(25px);
                 -webkit-backdrop-filter: blur(25px);
@@ -365,7 +365,7 @@
         <div class="viewport-test">
             <div class="viewport-header">
                 <span>🖥️ TABLET (Portrait)</span>
-                <span class="size">601px - 900px</span>
+                <span class="size">601px - 1024px</span>
             </div>
             <div class="viewport-content" style="max-width: 768px;">
                 <div class="test-info">
@@ -431,7 +431,7 @@
         <div class="viewport-test">
             <div class="viewport-header">
                 <span>💻 DESKTOP (Full)</span>
-                <span class="size">901px+</span>
+                <span class="size">1025px+</span>
             </div>
             <div class="viewport-content">
                 <div class="test-info">
@@ -520,7 +520,7 @@
                     <strong>Grid:</strong> minmax(280px, 1fr)</p>
                 </div>
                 <div class="summary-card">
-                    <h3>🖥️ Tablet (601-900px)</h3>
+                    <h3>🖥️ Tablet (601-1024px)</h3>
                     <p><strong>Estado:</strong> ✓ Igual a Móvil<br/>
                     <strong>Blur:</strong> Desactivado<br/>
                     <strong>Font Awesome:</strong> No<br/>
@@ -529,7 +529,7 @@
                     <strong>Grid:</strong> minmax(280px, 1fr)</p>
                 </div>
                 <div class="summary-card">
-                    <h3>💻 Desktop (901px+)</h3>
+                    <h3>💻 Desktop (1025px+)</h3>
                     <p><strong>Estado:</strong> ✓ Full Version<br/>
                     <strong>Blur:</strong> ACTIVO 25px<br/>
                     <strong>Font Awesome:</strong> Sí<br/>
@@ -543,7 +543,7 @@
                 <h3 style="color: #4CAF50; margin-bottom: 10px;">✓ TODAS LAS VERSIONES CUMPLEN REQUISITOS</h3>
                 <p style="font-size: 0.9rem; line-height: 1.6; color: rgba(255, 255, 255, 0.8);">
                     <strong>Móvil + Tablet comparten dinámica:</strong> Mismo versión optimizada sin blur, sin Font Awesome, sin rotating images. Padding y font-size escalan dinámicamente con clamp().<br/><br/>
-                    <strong>Desktop versión completa:</strong> Blur activado, Font Awesome cargado, rotating images activas, grid más espacioso. Cargado solo para pantallas grandes (media query min-width: 901px).<br/><br/>
+                    <strong>Desktop versión completa:</strong> Blur activado, Font Awesome cargado, rotating images activas, grid más espacioso. Cargado solo para pantallas grandes (media query min-width: 1025px).<br/><br/>
                     <strong>Resultado:</strong> Optimización perfecta. Tablets se comportan como móviles ahorran recursos. Desktop obtiene experiencia premium.
                 </p>
             </div>

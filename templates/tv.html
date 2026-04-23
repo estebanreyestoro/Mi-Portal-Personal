@@ -6,7 +6,7 @@
     <title>Canales en Vivo & Música - Mi Portal</title>
     <link rel="icon" type="image/png" href="/static/favicon.png">
     <!-- Font Awesome cargado solo en desktop (ahorra ~100KB en móviles) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="(min-width: 901px)">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="(min-width: 1025px)">
     
     <style>
         /* RESET GLOBAL: Evita el desborde y el zoom innecesario */
@@ -55,9 +55,11 @@
         }
         
         /* En móviles: solo gradiente, sin intentar cargar imágenes */
-        @media (max-width: 900px) {
+        @media (max-width: 1024px) {
             body::before {
-                background: linear-gradient(135deg, #0a1118 0%, #1a2332 50%, #0f1a2a 100%) fixed !important;
+                background: linear-gradient(135deg, #0a1118 0%, #1a2332 50%, #0f1a2a 100%) !important;
+                background-attachment: scroll !important;
+                filter: none !important;
             }
         }
 
@@ -87,7 +89,7 @@
             gap: 10px;
         }
         
-        @media (max-width: 900px) {
+        @media (max-width: 1024px) {
             .btn-back {
                 backdrop-filter: none !important;
                 -webkit-backdrop-filter: none !important;
@@ -124,7 +126,7 @@
             padding: 0 20px;
         }
 
-        @media (min-width: 900px) {
+        @media (min-width: 1025px) {
             .dashboard {
                 grid-template-columns: 3fr 2fr; /* TV más grande que Música en PC */
             }
@@ -145,7 +147,7 @@
         }
         
         /* Deshabilitar blur en móviles (ahorro CPU/GPU) */
-        @media (max-width: 900px) {
+        @media (max-width: 1024px) {
             .glass-card {
                 backdrop-filter: none !important;
                 -webkit-backdrop-filter: none !important;
@@ -203,7 +205,7 @@
             transition: all 0.2s;
         }
         
-        @media (max-width: 900px) {
+        @media (max-width: 1024px) {
             .fullscreen-btn {
                 backdrop-filter: none !important;
                 background: rgba(0, 0, 0, 0.8);
@@ -266,7 +268,7 @@
         .btn-action:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-2px); }
         
         /* Deshabilitar transforms en móviles */
-        @media (max-width: 900px) {
+        @media (max-width: 1024px) {
             .btn-action:hover { transform: none; }
         }
 
@@ -283,12 +285,12 @@
         .input-glass:focus { border-color: rgba(255,255,255,0.4); }
         
         /* Ocultar iconos Font Awesome en móviles (no necesita descarga) */
-        @media (max-width: 900px) {
+        @media (max-width: 1024px) {
             .fas, .fab { display: none; }
         }
         
         /* Fallback de texto para móviles cuando Font Awesome no carga */
-        @media (max-width: 900px) {
+        @media (max-width: 1024px) {
             .btn-back::before { content: "← "; }
             .glass-card h2::before { content: ""; }
         }
@@ -332,7 +334,7 @@
         }
 
         /* 1. Arreglo para Horizontal (Foto 1): Permitimos que la card crezca al rotar el celu */
-        @media (max-width: 900px) and (orientation: landscape) {
+        @media (max-width: 1024px) and (orientation: landscape) {
             .dashboard {
                 padding: 10px !important; /* Mínimo margen */
                 margin: 0 !important;

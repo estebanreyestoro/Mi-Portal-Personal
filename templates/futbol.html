@@ -6,7 +6,7 @@
     <title>Fútbol - Mi Portal</title>
     <link rel="icon" type="image/png" href="/static/favicon.png">
     <!-- Font Awesome cargado solo en desktop (ahorra ~100KB en móviles) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="(min-width: 901px)">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="(min-width: 1025px)">
     <style>
         /* RESET GLOBAL: Evita el desborde y el zoom innecesario */
         * {
@@ -25,7 +25,7 @@
         :root { --text-main: #f1f3f8; --accent-futbol: #4A6B5C; --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; --max-width: 800px; }
         body { margin: 0; color: var(--text-main); font-family: var(--font); min-height: 100vh; background-color: #06080d; overflow-x: hidden; }
         body::before { content: ''; position: fixed; inset: 0; z-index: -1; background-size: cover; background-position: center; background-attachment: fixed; filter: brightness(0.35) contrast(1.1) saturate(1.2); transition: background-image 2s ease-in-out; background: linear-gradient(135deg, #0a1a0f 0%, #1a321a 50%, #0a0f0a 100%) fixed; }
-        @media (max-width: 900px) { body::before { background: linear-gradient(135deg, #0a1a0f 0%, #1a321a 50%, #0a0f0a 100%) fixed !important; } }
+        @media (max-width: 1024px) { body::before { background: linear-gradient(135deg, #0a1a0f 0%, #1a321a 50%, #0a0f0a 100%) !important; background-attachment: scroll !important; filter: none !important; } }
         .top-nav { padding: clamp(15px, 4vw, 40px); display: flex; justify-content: space-between; align-items: center; max-width: var(--max-width); margin: 0 auto; }
         .btn-back { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.2); color: white; text-decoration: none; padding: 12px 25px; border-radius: 30px; font-weight: 500; backdrop-filter: blur(10px); transition: all 0.3s ease; display: flex; align-items: center; gap: 10px; }
         .btn-back:hover { background: rgba(255, 255, 255, 0.15); transform: translateX(-5px); }
@@ -51,7 +51,7 @@
         .btn-update { background: rgba(255, 255, 255, 0.1); color: white; border: 1px solid rgba(255, 255, 255, 0.2); padding: 12px; border-radius: 999px; cursor: pointer; font-weight: 600; width: 100%; margin-top: 15px; transition: all 0.3s; }
         .btn-update:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-2px); }
         
-        @media (max-width: 900px) {
+        @media (max-width: 1024px) {
             .btn-back { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; background: rgba(255, 255, 255, 0.08); }
             .glass-card { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; background: rgba(18, 18, 22, 0.75); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
             .select-glass { backdrop-filter: none !important; background: rgba(0,0,0,0.6); }

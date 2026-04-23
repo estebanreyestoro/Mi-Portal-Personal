@@ -69,9 +69,14 @@
             background: linear-gradient(135deg, #0a1118 0%, #1a2332 50%, #0f1a2a 100%) fixed;
         }
         
-        @media (max-width: 900px) {
+        @media (max-width: 1024px) {
+            body {
+                background-attachment: scroll !important;
+            }
             body::before {
-                background: linear-gradient(135deg, #0a1118 0%, #1a2332 50%, #0f1a2a 100%) fixed !important;
+                background: linear-gradient(135deg, #0a1118 0%, #1a2332 50%, #0f1a2a 100%) !important;
+                background-attachment: scroll !important;
+                filter: none !important;
             }
         }
 
@@ -138,7 +143,7 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
         
-        @media (max-width: 900px) {
+        @media (max-width: 1024px) {
             .clima-display {
                 backdrop-filter: none !important;
                 -webkit-backdrop-filter: none !important;
@@ -167,7 +172,7 @@
             padding: 0 12px;
         }
         
-        @media (min-width: 901px) {
+        @media (min-width: 1025px) {
             .dashboard {
                 grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             }
@@ -189,7 +194,7 @@
             transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
         
-        @media (max-width: 900px) {
+        @media (max-width: 1024px) {
             .card {
                 backdrop-filter: none !important;
                 -webkit-backdrop-filter: none !important;
@@ -247,7 +252,7 @@
             transform: translateY(-1px);
         }
         
-        @media (max-width: 900px) {
+        @media (max-width: 1024px) {
             .btn-update:hover {
                 transform: none;
             }
@@ -286,14 +291,14 @@
         .card.theme-tv { border-color: rgba(46, 77, 167, 0.4); }
 
         /* ====== Ajustes de diseño específico ====== */
-        @media (min-width: 900px) {
+        @media (min-width: 1025px) {
             .theme-musica, .theme-tv {
                 grid-column: 1 / -1;
             }
         }
 
         /* ====== Ajustes de layout responsive ====== */
-        @media (max-width: 900px) {
+        @media (max-width: 1024px) {
             body {
                 padding: 14px 10px;
             }

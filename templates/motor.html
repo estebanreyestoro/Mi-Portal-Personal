@@ -276,12 +276,13 @@
 
         /* AJUSTE RESPONSIVO PARA SUBPÁGINAS (Móviles) */
         @media (max-width: 600px) {
-            /* Centramos la navegación superior */
+            /* Navegación superior alineada a la izquierda */
             .top-nav {
-                flex-direction: column !important;
-                gap: 15px !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                align-items: center !important;
                 padding: 20px 10px !important;
-                text-align: center !important;
+                text-align: left !important;
             }
 
             .page-title {

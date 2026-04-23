@@ -45,7 +45,7 @@
             font-family: var(--font);
             min-height: 100vh;
             overflow-x: hidden;
-            background: linear-gradient(135deg, rgba(114, 47, 55, 0.95), rgba(160, 82, 45, 0.95)),
+            background: linear-gradient(135deg, rgba(0, 0, 51, 0.95), rgba(0, 6, 102, 0.95)),
                         url('about:blank') center/cover no-repeat fixed;
             background-size: cover;
             background-position: center;
@@ -65,8 +65,8 @@
             opacity: 1;
             transition: opacity 2s ease-in-out;
             pointer-events: none;
-            /* Gradiente en tonos bordó con notas de otros colores Pantone */
-            background: linear-gradient(135deg, #722F37 0%, #B22222 25%, #A0522D 50%, #8B4513 75%, #2F4F4F 100%) fixed;
+            /* Gradiente navy oscuro más llamativo */
+            background: linear-gradient(135deg, #000033 0%, #000066 25%, #000099 50%, #001122 75%, #000033 100%) fixed;
         }
         
         @media (max-width: 1024px) {
@@ -74,7 +74,7 @@
                 background-attachment: scroll !important;
             }
             body::before {
-                background: linear-gradient(135deg, #722F37 0%, #B22222 25%, #A0522D 50%, #8B4513 75%, #2F4F4F 100%) !important;
+                background: linear-gradient(135deg, #000033 0%, #000066 25%, #000099 50%, #001122 75%, #000033 100%) !important;
                 background-attachment: scroll !important;
                 filter: none !important;
             }
